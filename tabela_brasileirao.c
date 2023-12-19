@@ -204,7 +204,7 @@ int mostrarMetade(T_TIME t[], int i)
 }
 
 // < Procedimento para ordenar os times de acordo com a classificação atual >
-void selectionSort(T_TIME v[], int n)
+void selectionSort(T_TIME v[], int n, int *ordenada)
 {
 	// < Declaração de variáveis locais >
 	int i, im; // im = índice de maior valor;
@@ -232,8 +232,45 @@ void selectionSort(T_TIME v[], int n)
 			v[im] = tmp;
 		}
 		
-		selectionSort(v, n-1);
+		selectionSort(v, n-1, ordenada);
 	}
+	else
+	{
+		printf(">[!]< Tabela ordenada com sucesso usando o algoritmo Selection Sort.\n");
+		
+		system("PAUSE");
+		
+		*ordenada = 1;
+	}
+}
+
+// < Procedimento para ordenar os times de acordo com a classificação atual >
+void bubbleSort(T_TIME v[], int n, int *ordenada)
+{
+	int i, fim;
+	T_TIME tmp;
+
+	for (fim = n-1; fim > 0; fim--)
+	{
+		for (i = 0; i < fim; i++)
+		{
+			if (v[i].posicao > v[i+1].posicao)
+			{
+				tmp = v[i];
+			
+				v[i] = v[i + 1];
+			
+				v[i + 1] = tmp;
+			}
+			
+		}
+	}
+	
+	printf(">[!]< Tabela ordenada com sucesso usando o algoritmo Selection Sort.\n");
+		
+	system("PAUSE");
+	
+	*ordenada = 1;
 }
 
 // < Procedimento para verificar se a lista está ordenada e chamar a função solicitada pelo usuário >
@@ -278,7 +315,7 @@ void menu(T_TIME t[])
 {
 	// < Declaração de variáveis locais >
 	char nome[100];
-	int opcao, posicao, ordenado = 0;
+	int opcao, posicao, ordenada = 0;
 	
 	// < Loop do menu >
 	do 
@@ -287,7 +324,7 @@ void menu(T_TIME t[])
 		system("cls");
 		
 		// < Imprime o menu >		
-		printf(">-----------------<[ B R A S I L E I R A O ]>-----------------<\nEscolha abaixo uma das opcoes que deseja acessar:\n[1]: Buscar um time e sua posicao\n\t=> Veja em qual posição da serie A seu time esta.\n[2]: 5 primeiros colocados\n\t=> Verifique os times mais bem colocados.\n[3]: 5 ultimos colocados.\n\t=> Verifique os times que estao na zona de rebaixamento.\n[4]: Diferenca de pontos entre os 5 primeiros.\n\t=> Saiba a diferenca de pontos entre os primeiros colocados.\n[5]: Diferenca de pontos entre os 5 ultimos.\n\t=> Saiba a diferenca de pontos entre os ultimos colocados.\n[6]: 10 primeiros times.\n\t=> Reordena os times e mostra metade dos times com base nos pontos.\n[0]: Sair do programa\n\t=> Fecha o programa.\n\nSua escolha: ");
+		printf(">-----------------<[ B R A S I L E I R A O ]>-----------------<\nEscolha abaixo uma das opcoes que deseja acessar:\n[1]: Buscar um time e sua posicao\n\t=> Veja em qual posição da serie A seu time esta.\n[2]: 5 primeiros colocados\n\t=> Verifique os times mais bem colocados.\n[3]: 5 ultimos colocados.\n\t=> Verifique os times que estao na zona de rebaixamento.\n[4]: Diferenca de pontos entre os 5 primeiros.\n\t=> Saiba a diferenca de pontos entre os primeiros colocados.\n[5]: Diferenca de pontos entre os 5 ultimos.\n\t=> Saiba a diferenca de pontos entre os ultimos colocados.\n[6]: 10 primeiros times.\n\t=> Reordena os times e mostra metade dos times com base nos pontos.\n[7]: Selection Sort.\n\t=> Ordena os times com o algoritmo Selection Sort.\n[8]: Bubble Sort.\n\t=> Ordena os times com o algoritmo Bubble Sort.\n[0]: Sair do programa\n\t=> Fecha o programa.\n\nSua escolha: ");
 		scanf("%i", &opcao);
 		
 		// < Verifica a opção escolhida pelo usuário >		
@@ -298,23 +335,65 @@ void menu(T_TIME t[])
 				break;
 				
 			case 2:
-				verificaOrdenada("primeiros", ordenado, t, 0);
+				verificaOrdenada("primeiros", ordenada, t, 0);
 				break;
 				
 			case 3:
-				verificaOrdenada("ultimos", ordenado, t, 0);
+				verificaOrdenada("ultimos", ordenada, t, 0);
 				break;
 				
 			case 4:
-				verificaOrdenada("diferencaPrimeiros", ordenado, t, 0);
+				verificaOrdenada("diferencaPrimeiros", ordenada, t, 0);
 				break;
 				
 			case 5:
-				verificaOrdenada("diferencaUltimos", ordenado, t, 0);
+				verificaOrdenada("diferencaUltimos", ordenada, t, 0);
 				break;
 			
 			case 6:
-				verificaOrdenada("mostrarMetade", ordenado, t, 0);
+				verificaOrdenada("mostrarMetade", ordenada, t, 0);
+				break;
+			
+			case 7:
+				if (ordenada == 0)
+				{
+					system("CLS");
+					
+					selectionSort(t, 19, &ordenada);
+				}
+				else
+				{
+					system("CLS");
+					
+					printf("\n>[!]< Tabela ja foi ordenada!\n\n");
+					
+					system("PAUSE");
+				}
+				break;
+			
+			case 8: 
+				if (ordenada == 0)
+				{
+					system("CLS");
+					
+					bubbleSort(t, 19, &ordenada);
+				}
+				else
+				{
+					system("CLS");
+					
+					printf("\n>[!]< Tabela ja foi ordenada!\n\n");
+					
+					system("PAUSE");
+				}
+				break;
+			
+			case 9: 
+				
+				break;
+			
+			case 10: 
+			
 				break;
 			
 			case 0:
