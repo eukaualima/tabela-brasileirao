@@ -157,6 +157,40 @@ int mostrarMetade(T_TIME t[], int i)
 	}
 }
 
+// < Procedimento para ordenar os times de acordo com a classificação atual >
+void selectionSort(T_TIME v[], int n)
+{
+	// < Declaração de variáveis locais >
+	int i, im; // im = índice de maior valor;
+	T_TIME tmp;
+	
+	if (n > 1)
+	{
+		// < Zera o maior valor >
+		im = 0;
+		
+		for (i = 1; i < n; i++)
+		{
+			if (v[i].posicao > v[im].posicao)
+			{
+				im = i;
+			}
+		}
+		
+		// < Faz a troca >
+		if (im != n-1)
+		{
+			tmp = v[n-1];
+			
+			v[n-1] = v[im]; // Move o maior para o final
+			v[im] = tmp;
+		}
+		
+		selectionSort(v, n-1);
+	}
+}
+
+
 // < Procedimento para o usuário controlar o que deseja fazer >
 void menu(T_TIME t[])
 {
@@ -167,7 +201,7 @@ void menu(T_TIME t[])
 	// < Loop do menu >
 	do 
 	{
-		printf(">-----------------<[ B R A S I L E I R A O ]>-----------------<\nEscolha abaixo uma das opcoes que deseja acessar:\n[1]: Buscar um time e sua posicao\n\t=> Veja em qual posição da serie A seu time esta.\n[2]: 5 primeiros colocados\n\t=> Verifique os times mais bem colocados.\n[3]: 5 ultimos colocados.\n\t=> Verifique os times que estao na zona de rebaixamento.\n[4]: Diferenca de pontos entre os 5 primeiros.\n\t=> Saiba a diferenca de pontos entre os primeiros colocados.\n[5]: Diferenca de pontos entre os 5 ultimos.\n\t=> Saiba a diferenca de pontos entre os ultimos colocados.\n[6]: 10 primeiros times.\n\t=> Metade dos times com base nos pontos.\n[0]: Sair do programa\n\t=> Fecha o programa.\n\nSua escolha: ");
+		printf(">-----------------<[ B R A S I L E I R A O ]>-----------------<\nEscolha abaixo uma das opcoes que deseja acessar:\n[1]: Buscar um time e sua posicao\n\t=> Veja em qual posição da serie A seu time esta.\n[2]: 5 primeiros colocados\n\t=> Verifique os times mais bem colocados.\n[3]: 5 ultimos colocados.\n\t=> Verifique os times que estao na zona de rebaixamento.\n[4]: Diferenca de pontos entre os 5 primeiros.\n\t=> Saiba a diferenca de pontos entre os primeiros colocados.\n[5]: Diferenca de pontos entre os 5 ultimos.\n\t=> Saiba a diferenca de pontos entre os ultimos colocados.\n[6]: 10 primeiros times.\n\t=> Reordena os times e mostra metade dos times com base nos pontos.\n[0]: Sair do programa\n\t=> Fecha o programa.\n\nSua escolha: ");
 		scanf("%i", &opcao);
 		
 		switch(opcao)
@@ -188,22 +222,27 @@ void menu(T_TIME t[])
 				break;
 				
 			case 2:
+				selectionSort(t, 19);
 				primeiros(t, 0);
 				break;
 				
 			case 3:
+				selectionSort(t, 19);
 				ultimos(t, 0);
 				break;
 				
 			case 4:
+				selectionSort(t, 19);
 				diferencaPrimeiros(t, 0);
 				break;
 				
 			case 5:
+				selectionSort(t, 19);
 				diferencaUltimos(t, 0);
 				break;
 			
 			case 6:
+				selectionSort(t, 19);
 				mostrarMetade(t, 0);
 				break;
 			
@@ -229,37 +268,37 @@ int main (void)
 	T_TIME t[20];
 	
 	// < Adição dos times no vetor t >
-	strcpy(t[0].nome, "Palmeiras");
-	t[0].pontos = 63;
-	t[0].posicao = 1;
+	strcpy(t[0].nome, "Athletico-PR");
+	t[0].pontos = 52;
+	t[0].posicao = 8;
 	
-	strcpy(t[1].nome, "Flamengo");
-	t[1].pontos = 63;
-	t[1].posicao = 2;
+	strcpy(t[1].nome, "America-MG");
+	t[1].pontos = 21;
+	t[1].posicao = 20;
 	
-	strcpy(t[2].nome, "Botafogo");
-	t[2].pontos = 62;
-	t[2].posicao = 3;
+	strcpy(t[2].nome, "Atletico-MG");
+	t[2].pontos = 60;
+	t[2].posicao = 4;
 	
-	strcpy(t[3].nome, "Atletico-MG");
-	t[3].pontos = 60;
-	t[3].posicao = 4;
+	strcpy(t[3].nome, "Botafogo");
+	t[3].pontos = 62;
+	t[3].posicao = 3;
 	
-	strcpy(t[4].nome, "Gremio");
-	t[4].pontos = 59;
-	t[4].posicao = 5;
+	strcpy(t[4].nome, "Fluminense");
+	t[4].pontos = 53;
+	t[4].posicao = 7;
 	
 	strcpy(t[5].nome, "Bragantino");
 	t[5].pontos = 59;
 	t[5].posicao = 6;
 	
-	strcpy(t[6].nome, "Fluminense");
-	t[6].pontos = 53;
-	t[6].posicao = 7;
+	strcpy(t[6].nome, "Gremio");
+	t[6].pontos = 59;
+	t[6].posicao = 5;
 	
-	strcpy(t[7].nome, "Athletico-PR");
-	t[7].pontos = 52;
-	t[7].posicao = 8;
+	strcpy(t[7].nome, "Palmeiras");
+	t[7].pontos = 63;
+	t[7].posicao = 1;
 	
 	strcpy(t[8].nome, "Cuiaba");
 	t[8].pontos = 48;
@@ -269,29 +308,29 @@ int main (void)
 	t[9].pontos = 47;
 	t[9].posicao = 10;
 	
-	strcpy(t[10].nome, "Internacional");
-	t[10].pontos = 46;
-	t[10].posicao = 11;
+	strcpy(t[10].nome, "Vasco da Gama");
+	t[10].pontos = 42;
+	t[10].posicao = 16;
 	
 	strcpy(t[11].nome, "Fortaleza");
 	t[11].pontos = 45;
 	t[11].posicao = 12;
 	
-	strcpy(t[12].nome, "Cruzeiro");
+	strcpy(t[12].nome, "Corinthians");
 	t[12].pontos = 44;
-	t[12].posicao = 13;
+	t[12].posicao = 14;
 	
-	strcpy(t[13].nome, "Corinthians");
+	strcpy(t[13].nome, "Cruzeiro");
+	t[13].posicao = 13;
 	t[13].pontos = 44;
-	t[13].posicao = 14;
 	
 	strcpy(t[14].nome, "Santos");
 	t[14].pontos = 43;
 	t[14].posicao = 15;
 	
-	strcpy(t[15].nome, "Vasco da Gama");
-	t[15].pontos = 42;
-	t[15].posicao = 16;
+	strcpy(t[15].nome, "Internacional");
+	t[15].pontos = 46;
+	t[15].posicao = 11;
 	
 	strcpy(t[16].nome, "Bahia");
 	t[16].pontos = 41;
@@ -305,9 +344,9 @@ int main (void)
 	t[18].pontos = 29;
 	t[18].posicao = 19;
 	
-	strcpy(t[19].nome, "America-MG");
-	t[19].pontos = 21;
-	t[19].posicao = 20;
+	strcpy(t[19].nome, "Flamengo");
+	t[19].pontos = 63;
+	t[19].posicao = 2;
 	
 	// < Chama o menu >
 	menu(t);
