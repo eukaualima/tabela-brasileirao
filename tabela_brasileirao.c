@@ -236,20 +236,61 @@ void selectionSort(T_TIME v[], int n)
 	}
 }
 
+// < Procedimento para verificar se a lista está ordenada e chamar a função solicitada pelo usuário >
+void verificaOrdenada(char funcao[], int ordenada, T_TIME t[], int i)
+{
+	// < Limpa o terminal >	
+	system("CLS");
+	
+	// < Verifica se está ordenado >	
+	if (ordenada == 0)
+	{
+		printf(">[!]< A tabela esta desordenada. Volte ao menu principal e escolha um metodo de ordenacao!\n\n");
+		system("pause");
+	}
+	else
+	{
+		if (strcmp(funcao, "primeiros") == 0)
+		{
+			primeiros(t, i);
+		}
+		else if (strcmp(funcao, "ultimos") == 0)
+		{
+			ultimos(t, i);
+		}
+		else if (strcmp(funcao, "diferencaPrimeiros"))
+		{
+			diferencaPrimeiros(t, i);
+		}
+		else if (strcmp(funcao, "diferencaUltimos"))
+		{
+			diferencaUltimos(t, i);
+		}
+		else if (strcmp(funcao, "mostrarMetade"))
+		{
+			mostrarMetade(t, i);
+		}
+	}
+}
 
 // < Procedimento para o usuário controlar o que deseja fazer >
 void menu(T_TIME t[])
 {
 	// < Declaração de variáveis locais >
 	char nome[100];
-	int opcao, posicao;
+	int opcao, posicao, ordenado = 0;
 	
 	// < Loop do menu >
 	do 
 	{
+		// < Limpa o terminal >		
+		system("cls");
+		
+		// < Imprime o menu >		
 		printf(">-----------------<[ B R A S I L E I R A O ]>-----------------<\nEscolha abaixo uma das opcoes que deseja acessar:\n[1]: Buscar um time e sua posicao\n\t=> Veja em qual posição da serie A seu time esta.\n[2]: 5 primeiros colocados\n\t=> Verifique os times mais bem colocados.\n[3]: 5 ultimos colocados.\n\t=> Verifique os times que estao na zona de rebaixamento.\n[4]: Diferenca de pontos entre os 5 primeiros.\n\t=> Saiba a diferenca de pontos entre os primeiros colocados.\n[5]: Diferenca de pontos entre os 5 ultimos.\n\t=> Saiba a diferenca de pontos entre os ultimos colocados.\n[6]: 10 primeiros times.\n\t=> Reordena os times e mostra metade dos times com base nos pontos.\n[0]: Sair do programa\n\t=> Fecha o programa.\n\nSua escolha: ");
 		scanf("%i", &opcao);
 		
+		// < Verifica a opção escolhida pelo usuário >		
 		switch(opcao)
 		{
 			case 1:
@@ -257,31 +298,38 @@ void menu(T_TIME t[])
 				break;
 				
 			case 2:
-				primeiros(t, 0);
+				verificaOrdenada("primeiros", ordenado, t, 0);
 				break;
 				
 			case 3:
-				ultimos(t, 0);
+				verificaOrdenada("ultimos", ordenado, t, 0);
 				break;
 				
 			case 4:
-				diferencaPrimeiros(t, 0);
+				verificaOrdenada("diferencaPrimeiros", ordenado, t, 0);
 				break;
 				
 			case 5:
-				diferencaUltimos(t, 0);
+				verificaOrdenada("diferencaUltimos", ordenado, t, 0);
 				break;
 			
 			case 6:
-				mostrarMetade(t, 0);
+				verificaOrdenada("mostrarMetade", ordenado, t, 0);
 				break;
 			
 			case 0:
+				// < Limpa o terminal >				
+				system("CLS");
+				
+				// < Informa que foi finalizado >
+				printf(">[!]< Programa finalizado com sucesso!");				
+				
+				// < Encerra o programa com o código 1 >				
 				exit(1);	
 				break;
 				
 			default:
-				printf("[!] Escolha uma opção válida.\n");
+				printf("\n>[!]< Escolha uma opção válida.\n");
 				break;
 		}
 	} while (opcao != 0);
