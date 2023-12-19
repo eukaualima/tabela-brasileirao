@@ -6,7 +6,7 @@
 /**
  * @author Kauã dos Santos Lima
  * @since 28/11/2023
- * @version 28/11/2023
+ * @version 19/12/2023
  * @todo Criação de um algoritmo recursivo para retornar dados da tabela do Brasileirão Série A
  **/
 
@@ -44,13 +44,13 @@ int buscar(T_TIME t[], char nome[], int i)
 {
 	if (i > 19)
 	{
-		printf("[!] Este time não existe na tabela.\n");
+		printf(">[!]< Este time nao existe na tabela.\n");
 		system("PAUSE");
 		return -1;
 	}
 	else if (strcasecmp(nome, t[i].nome) == 0)
 	{
-		printf("Time encontrado! Gerando informacoes...\n");
+		printf(">[!]< Time encontrado! Gerando informacoes...\n");
 		return i;
 	}
 	else
@@ -61,10 +61,33 @@ int buscar(T_TIME t[], char nome[], int i)
 
 // < Procedimento para impressão do time >
 void imprimir(T_TIME t[], int i)
-{
+{		
 	printf("\n\nPosicao: %i\nTime: %s\nPontos: %i\n\n", t[i].posicao, t[i].nome, t[i].pontos);
 	system("PAUSE");
 }
+
+// < Procedimnto principal da busca >
+void buscaMain(T_TIME t[])
+{
+	// < Declaração de variáveis locais >
+	char nome[100];
+	int posicao;
+		
+	// < Entrada de dados >
+	printf(">-----------------<[ B U S C A ]>-----------------<\n\n");
+	printf("Nome do time: ");
+	scanf("%s", nome);
+	
+	// < Faz a busca recursivamente >
+	posicao = buscar(t, nome, 0);
+	
+	// < Imprime o resultado da busca >
+	if (posicao >= 0)
+	{
+		imprimir(t, posicao);
+	}
+}
+
 
 // < Função para mostrar os 5 primeiros colocados >
 int primeiros(T_TIME t[], int i)
@@ -207,42 +230,26 @@ void menu(T_TIME t[])
 		switch(opcao)
 		{
 			case 1:
-				// < Entrada de dados >
-				printf("Time para buscar: ");
-				scanf("%s", nome);
-				
-				// < Faz a busca recursivamente >
-				posicao = buscar(t, nome, 0);
-				
-				// < Imprime o resultado da busca >
-				if (posicao >= 0)
-				{
-					imprimir(t, posicao);
-				}
+				buscaMain(t);
 				break;
 				
 			case 2:
-				selectionSort(t, 19);
 				primeiros(t, 0);
 				break;
 				
 			case 3:
-				selectionSort(t, 19);
 				ultimos(t, 0);
 				break;
 				
 			case 4:
-				selectionSort(t, 19);
 				diferencaPrimeiros(t, 0);
 				break;
 				
 			case 5:
-				selectionSort(t, 19);
 				diferencaUltimos(t, 0);
 				break;
 			
 			case 6:
-				selectionSort(t, 19);
 				mostrarMetade(t, 0);
 				break;
 			
