@@ -44,13 +44,14 @@ int buscar(T_TIME t[], char nome[], int i)
 {
 	if (i > 19)
 	{
-		printf(">[!]< Este time nao existe na tabela.\n");
+		printf("\n\n>-----------------<[ B U S C A ]>-----------------<\n");
+		printf(">[!]< Este time nao existe na tabela.\n\n");
 		system("PAUSE");
 		return -1;
 	}
 	else if (strcasecmp(nome, t[i].nome) == 0)
 	{
-		printf(">[!]< Time encontrado! Gerando informacoes...\n");
+		printf("\n>[!]< Time encontrado! Gerando informacoes...\n");
 		return i;
 	}
 	else
@@ -62,7 +63,29 @@ int buscar(T_TIME t[], char nome[], int i)
 // < Procedimento para impressão do time >
 void imprimir(T_TIME t[], int i)
 {		
-	printf("\n\nPosicao: %i\nTime: %s\nPontos: %i\n\n", t[i].posicao, t[i].nome, t[i].pontos);
+	// < Declaração de variáveis locais >
+	int j, len_nome;
+	char temp_nome[100];
+	
+	// < Passa o nome do time para a variável temporária >
+	strcpy(temp_nome, t[i].nome);	
+	
+	// < Coloca o nome do time em UpperCase >
+	strupr(temp_nome);
+	
+	// < Tamanho do nome do time >
+	len_nome = strlen(t[i].nome);	
+	
+	// < Iteração para impressão do nome espaçado >		
+	printf("\n>-----------------<[ ");
+	for (j = 0; j < len_nome; j++)
+	{
+		printf("%c ", temp_nome[j]);
+	}
+	printf("]>-----------------<\n");
+	
+	// < Impressão da busca encontrada >	
+	printf("\n|----------|---------|\n| Posicao  | Pontos  |\n|----------|---------|\n\t%i\t%i\t\n\n", t[i].posicao, t[i].pontos);
 	system("PAUSE");
 }
 
